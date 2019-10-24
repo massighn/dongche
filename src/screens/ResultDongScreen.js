@@ -1,11 +1,11 @@
-import React from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
-import Card from '../component/resultComponent';
-import {connect} from 'react-redux';
+import React from "react";
+import { View, Text, FlatList, StyleSheet } from "react-native";
+import Card from "../component/ResultComponent";
+import { connect } from "react-redux";
 
-const ResultDongScreen = ({navigation, result, items, deleteItem}) => {
-  const price = navigation.getParam('price');
-  const groupname = navigation.getParam('groupname');
+const ResultDongScreen = ({ navigation, result, items, deleteItem }) => {
+  const price = navigation.getParam("price");
+  const groupname = navigation.getParam("groupname");
   console.log(items);
   return (
     <View>
@@ -13,13 +13,13 @@ const ResultDongScreen = ({navigation, result, items, deleteItem}) => {
         <FlatList
           data={items}
           keyExtractor={(item, i) => i.toString()}
-          renderItem={() => {
+          renderItem={({ item }) => {
             return (
               <Card
                 groupname={groupname}
                 priceDong={price}
                 resultDong={result}
-                onPressd={() => deleteItem()}
+                onPressd={() => deleteItem(item.id)}
               />
             );
           }}
@@ -34,17 +34,17 @@ const styles = StyleSheet.create({});
 const mapStateToProps = state => {
   return {
     result: state.ResultReducer.result,
-    items: state.ItemReducer.items,
+    items: state.ItemReducer.items
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteItem: payload => dispatch({type: 'DELETE_ITEM', payload}),
+    deleteItem: payload => dispatch({ type: "DELETE_ITEM", payload })
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(ResultDongScreen);

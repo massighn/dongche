@@ -1,35 +1,39 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   TextInput,
-  StyleSheet,
-} from 'react-native';
-import {connect} from 'react-redux';
+  StyleSheet
+} from "react-native";
+import { connect } from "react-redux";
 
-const DongScreen = ({navigation, calcResult, addItems}) => {
-  const {textStyle, textInputStyle, buttonStyle} = styles;
-  const [price, setPrice] = useState('');
-  const [person, setPerson] = useState('');
-  const [groupname, setGroupname] = useState('');
+const DongScreen = ({ navigation, calcResult, addItems }) => {
+  const { textStyle, textInputStyle, buttonStyle } = styles;
+  const [price, setPrice] = useState("");
+  const [person, setPerson] = useState("");
+  const [groupname, setGroupname] = useState("");
 
   calculateDong = () => {
     calcResult(parseFloat(price / person));
   };
 
   showResult = () => {
-    addItems({groupname, price, person});
-    navigation.navigate('ResultDongScreen', {
+    if (!price.trim() || !person.trim() || !groupname.trim()) {
+      alert("همه ی فیلد ها اجباری می‌باشد !!!");
+      return;
+    }
+    addItems({ groupname, price, person });
+    navigation.navigate("ResultDongScreen", {
       result: calculateDong(),
       price: price,
-      groupname: groupname,
+      groupname: groupname
     });
   };
 
   return (
-    <View style={{flex: 1, alignItems: 'center'}}>
-      <View style={{marginTop: 90}}>
+    <View style={{ flex: 1, alignItems: "center" }}>
+      <View style={{ marginTop: 90 }}>
         <Text style={textStyle}>نام گروه:</Text>
         <TextInput
           style={textInputStyle}
@@ -40,7 +44,7 @@ const DongScreen = ({navigation, calcResult, addItems}) => {
         <Text style={textStyle}>چندتومنه؟</Text>
         <TextInput
           style={textInputStyle}
-          placeholder={'عدد وارد کن'}
+          placeholder={"عدد وارد کن"}
           value={price}
           onChangeText={text => setPrice(text)}
           keyboardType="numeric"
@@ -49,7 +53,7 @@ const DongScreen = ({navigation, calcResult, addItems}) => {
         <Text style={textStyle}>چند نفرین؟</Text>
         <TextInput
           style={textInputStyle}
-          placeholder={'عدد وارد کن'}
+          placeholder={"عدد وارد کن"}
           value={person}
           onChangeText={text => setPerson(text)}
           keyboardType="numeric"
@@ -67,42 +71,42 @@ const DongScreen = ({navigation, calcResult, addItems}) => {
 const styles = StyleSheet.create({
   textStyle: {
     fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 15,
+    fontWeight: "bold",
+    marginBottom: 15
   },
   textInputStyle: {
     fontSize: 18,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 15,
     width: 300,
-    marginBottom: 15,
+    marginBottom: 15
   },
   buttonStyle: {
     borderRadius: 15,
-    backgroundColor: 'pink',
+    backgroundColor: "pink",
     width: 200,
     height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
-  },
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20
+  }
 });
 
 const mapDispatchToProps = dispatch => {
   return {
-    calcResult: payload => dispatch({type: 'CALCULATE', payload}),
-    addItems: payload => dispatch({type: 'ADD_ITEM', payload}),
+    calcResult: payload => dispatch({ type: "CALCULATE", payload }),
+    addItems: payload => dispatch({ type: "ADD_ITEM", payload })
   };
 };
 
 const mapStateToProps = state => {
   return {
-    titleResult: state.ResultReducer.result,
+    titleResult: state.ResultReducer.result
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(DongScreen);

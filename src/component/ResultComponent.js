@@ -1,19 +1,19 @@
-import React from 'react';
-import {View, Text, TouchableOpacity, idDong, StyleSheet} from 'react-native';
-import {connect} from 'react-redux';
+import React from "react";
+import { View, Text, TouchableOpacity, idDong, StyleSheet } from "react-native";
+import { connect } from "react-redux";
 
-const resultComponenet = ({
+const ResultComponenet = ({
   priceDong,
   resultDong,
   groupname,
   onPressd,
   items,
-  navigation,
+  navigation
 }) => {
-  const {textDoStyle, textPrStyle, textGroupname, container} = styles;
+  const { textDoStyle, textPrStyle, textGroupname, container } = styles;
   //console.log(deleteItem());
   return (
-    <View style={{alignItems: 'center'}}>
+    <View style={{ alignItems: "center" }}>
       <View style={container}>
         <Text style={textGroupname}>{groupname}</Text>
         <Text style={textPrStyle}>{priceDong}</Text>
@@ -32,41 +32,41 @@ const resultComponenet = ({
 const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: "black",
     borderRadius: 15,
     width: 300,
     height: 100,
-    margin: 20,
+    margin: 20
   },
   textPrStyle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold"
   },
   textDoStyle: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: 'gray',
+    fontWeight: "bold",
+    color: "gray"
   },
   textGroupname: {
     fontSize: 22,
-    fontWeight: 'bold',
-    color: 'blue',
-  },
+    fontWeight: "bold",
+    color: "blue"
+  }
 });
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteItem: payload => dispatch({type: 'DELETE_ITEM', payload}),
+    deleteItem: payload => dispatch({ type: "DELETE_ITEM", payload })
   };
 };
 
 const mapStateToProps = state => {
   return {
-    items: state.ItemReducer.items,
+    items: state.ItemReducer.items
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-)(resultComponenet);
+  mapDispatchToProps
+)(ResultComponenet);
