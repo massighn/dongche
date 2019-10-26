@@ -9,20 +9,19 @@ import {
 } from 'react-native';
 
 const width = Dimensions.get('window');
-const height = Dimensions.get('window');
 
 const GetStarted = ({navigation}) => {
   const {startStyle, textStyle, container} = styles;
   return (
     <ImageBackground
-      source={require('../../asset/image/background.png')}
+      source={require('../../asset/image/blue.png')}
       style={container}>
       <TouchableOpacity
         style={startStyle}
         onPress={() => {
           navigation.navigate('DongScreen');
         }}>
-        <Text style={textStyle}>شروع کنید</Text>
+        <Text style={textStyle}>بزن بریم!</Text>
       </TouchableOpacity>
     </ImageBackground>
   );
@@ -38,18 +37,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   startStyle: {
-    backgroundColor: '#e9b5d2',
+    backgroundColor: 'white',
     borderWidth: 2,
-    borderColor: '#393e46',
+    borderColor: '#39819c',
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
     width: 200,
     height: 50,
-    marginTop: 400,
+    marginBottom: 100,
   },
   textStyle: {
     fontSize: 18,
+    color: '#39819c',
+    fontWeight: 'bold',
+    fontFamily: 'IRANYekanweb',
   },
 });
 

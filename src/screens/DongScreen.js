@@ -4,18 +4,28 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  ImageBackground,
   StyleSheet,
 } from 'react-native';
+import '../props';
 import {connect} from 'react-redux';
 
 const DongScreen = ({navigation, calcResult, addItems}) => {
-  const {textStyle, textInputStyle, buttonStyle} = styles;
+  const {
+    textStyle,
+    textInputStyle,
+    buttonStyleCalc,
+    buttonStyleView,
+    backGround,
+    container,
+    textButton,
+  } = styles;
   const [price, setPrice] = useState('');
   const [person, setPerson] = useState('');
   const [groupname, setGroupname] = useState('');
 
   calculateDong = () => {
-    calcResult(parseFloat(price / person));
+    calcResult(parseFloat(price.toEnglish() / person.toEnglish()));
   };
 
   showResult = () => {
@@ -28,59 +38,100 @@ const DongScreen = ({navigation, calcResult, addItems}) => {
   };
 
   return (
-    <View style={{flex: 1, alignItems: 'center'}}>
-      <View style={{marginTop: 90}}>
-        <Text style={textStyle}>نام گروه:</Text>
+    <ImageBackground
+      style={backGround}
+      source={require('../../asset/image/blue2.png')}>
+      <View style={container}>
         <TextInput
           style={textInputStyle}
           value={groupname}
           onChangeText={text => setGroupname(text)}
+          placeholder={'اسم گروهمون'}
         />
 
-        <Text style={textStyle}>چندتومنه؟</Text>
         <TextInput
           style={textInputStyle}
-          placeholder={'عدد وارد کن'}
           value={price}
           onChangeText={text => setPrice(text)}
-          keyboardType="numeric"
+          placeholder={'چندتومنه؟'}
+          keyboardType={'numeric'}
         />
 
-        <Text style={textStyle}>چند نفرین؟</Text>
         <TextInput
           style={textInputStyle}
-          placeholder={'عدد وارد کن'}
           value={person}
           onChangeText={text => setPerson(text)}
-          keyboardType="numeric"
+          placeholder={'چندنفریم؟'}
+          keyboardType={'numeric'}
         />
       </View>
-      <View>
-        <TouchableOpacity style={buttonStyle} onPress={showResult}>
-          <Text style={textStyle}>ببینیم چقدر میشه</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+
+      <TouchableOpacity style={buttonStyleCalc} onPress={showResult}>
+        <Text style={[textButton, {color: 'white'}]}>ببینیم چقدر میشه</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={buttonStyleView}
+        onPress={() => navigation.navigate('ResultDongScreen')}>
+        <Text style={[textButton, {color: '#39819c'}]}>نمایش</Text>
+      </TouchableOpacity>
+    </ImageBackground>
   );
 };
 
+DongScreen.navigationOptions = {
+  headerStyle: {
+    backgroundColor: '#39819c',
+  },
+  headerTintColor: 'white',
+};
+
 const styles = StyleSheet.create({
+  container: {
+    marginTop: 60,
+  },
+  textButton: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  buttonStyleView: {
+    backgroundColor: 'white',
+    borderWidth: 2,
+    borderColor: '#39819c',
+    borderRadius: 15,
+    width: 200,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  backGround: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   textStyle: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 15,
+    // marginBottom: 10,
+    marginTop: 10,
   },
   textInputStyle: {
-    fontSize: 18,
-    borderWidth: 1,
-    borderColor: 'gray',
+    fontSize: 20,
+    borderBottomWidth: 1.5,
+    borderBottomColor: '#39819c',
     borderRadius: 15,
     width: 300,
-    marginBottom: 15,
+    marginBottom: 10,
+    //backgroundColor: 'white',
+    //opacity: 0.7,
   },
-  buttonStyle: {
+  buttonStyleCalc: {
     borderRadius: 15,
-    backgroundColor: 'pink',
+    backgroundColor: '#39819c',
     width: 200,
     height: 50,
     justifyContent: 'center',

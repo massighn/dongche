@@ -11,20 +11,23 @@ const resultComponenet = ({
   navigation,
 }) => {
   const {textDoStyle, textPrStyle, textGroupname, container} = styles;
-  //console.log(deleteItem());
   return (
     <View style={{alignItems: 'center'}}>
       <View style={container}>
-        <Text style={textGroupname}>{groupname}</Text>
-        <Text style={textPrStyle}>{priceDong}</Text>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <Text style={textGroupname}>{groupname}</Text>
+          <Text style={textPrStyle}>{priceDong}</Text>
+        </View>
         <Text style={textDoStyle}>{resultDong}</Text>
-        <Text style={textDoStyle}>{idDong}</Text>
       </View>
-      <View>
-        <TouchableOpacity onPress={onPressd}>
-          <Text>حذف</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={onPressd}>
+        <Text>حذف</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -57,12 +60,13 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => {
   return {
     deleteItem: payload => dispatch({type: 'DELETE_ITEM', payload}),
+    toggleItem: payload => dispatch({type: 'TOGGLE_ITEM', payload}),
   };
 };
 
 const mapStateToProps = state => {
   return {
-    items: state.ItemReducer.items,
+    items: state.ItemReducer,
   };
 };
 
