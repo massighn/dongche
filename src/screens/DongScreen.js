@@ -12,7 +12,6 @@ import {connect} from 'react-redux';
 
 const DongScreen = ({navigation, calcResult, addItems}) => {
   const {
-    textStyle,
     textInputStyle,
     buttonStyleCalc,
     buttonStyleView,
@@ -25,13 +24,13 @@ const DongScreen = ({navigation, calcResult, addItems}) => {
   const [groupname, setGroupname] = useState('');
 
   calculateDong = () => {
-    calcResult(parseFloat(price.toEnglish() / person.toEnglish()));
+    calcResult(parseFloat(price / person));
   };
 
   showResult = () => {
-    addItems({groupname, price, person});
+    addItems(groupname, price, person);
+    calculateDong();
     navigation.navigate('ResultDongScreen', {
-      result: calculateDong(),
       price: price,
       groupname: groupname,
     });
@@ -47,6 +46,7 @@ const DongScreen = ({navigation, calcResult, addItems}) => {
           value={groupname}
           onChangeText={text => setGroupname(text)}
           placeholder={'اسم گروهمون'}
+          placeholderTextColor="#39819c"
         />
 
         <TextInput
@@ -54,6 +54,7 @@ const DongScreen = ({navigation, calcResult, addItems}) => {
           value={price}
           onChangeText={text => setPrice(text)}
           placeholder={'چندتومنه؟'}
+          placeholderTextColor="#39819c"
           keyboardType={'numeric'}
         />
 
@@ -62,6 +63,7 @@ const DongScreen = ({navigation, calcResult, addItems}) => {
           value={person}
           onChangeText={text => setPerson(text)}
           placeholder={'چندنفریم؟'}
+          placeholderTextColor="#39819c"
           keyboardType={'numeric'}
         />
       </View>
@@ -143,7 +145,8 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => {
   return {
     calcResult: payload => dispatch({type: 'CALCULATE', payload}),
-    addItems: payload => dispatch({type: 'ADD_ITEM', payload}),
+    addItems: (groupname, price, person) =>
+      dispatch({type: 'ADD_ITEM', payload: {groupname, price, person}}),
   };
 };
 
