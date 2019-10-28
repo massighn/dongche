@@ -7,10 +7,11 @@ import {
   ImageBackground,
   StyleSheet,
 } from 'react-native';
-import '../props';
 import {connect} from 'react-redux';
+import ItemStore from '../redux/store/ItemStore';
+import {validate} from '@babel/types';
 
-const DongScreen = ({navigation, calcResult, addItems}) => {
+const DongScreen = ({navigation, addItems, calculate, items}) => {
   const {
     textInputStyle,
     buttonStyleCalc,
@@ -24,7 +25,7 @@ const DongScreen = ({navigation, calcResult, addItems}) => {
   const [groupname, setGroupname] = useState('');
 
   calculateDong = () => {
-    calcResult(parseFloat(price / person));
+    calculate(parseFloat(price / person));
   };
 
   showResult = () => {
@@ -72,11 +73,13 @@ const DongScreen = ({navigation, calcResult, addItems}) => {
         <Text style={[textButton, {color: 'white'}]}>ببینیم چقدر میشه</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={buttonStyleView}
-        onPress={() => navigation.navigate('ResultDongScreen')}>
-        <Text style={[textButton, {color: '#39819c'}]}>نمایش</Text>
-      </TouchableOpacity>
+      {items.length > 0 ? (
+        <TouchableOpacity
+          style={buttonStyleView}
+          onPress={() => navigation.navigate('ResultDongScreen')}>
+          <Text style={[textButton, {color: '#39819c'}]}>نمایش</Text>
+        </TouchableOpacity>
+      ) : null}
     </ImageBackground>
   );
 };
@@ -95,6 +98,7 @@ const styles = StyleSheet.create({
   textButton: {
     fontSize: 16,
     fontWeight: 'bold',
+    fontFamily: 'IRANYekanweb',
   },
   buttonStyleView: {
     backgroundColor: 'white',
@@ -144,7 +148,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    calcResult: payload => dispatch({type: 'CALCULATE', payload}),
+    calculate: payload => dispatch({type: 'CALCULATE', payload}),
     addItems: (groupname, price, person) =>
       dispatch({type: 'ADD_ITEM', payload: {groupname, price, person}}),
   };
@@ -152,7 +156,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    titleResult: state.ResultReducer.result,
+    titleResult: state.ResultReducer,
+    items: state.ItemReducer,
   };
 };
 

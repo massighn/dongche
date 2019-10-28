@@ -10,11 +10,12 @@ const Reducer = (state = [], {type, payload}) => {
           groupname: payload.groupname,
           price: payload.price,
           person: payload.person,
+          //result: parseFloat(payload.price / payload.person),
         },
       ];
 
     case 'DELETE_ITEM':
-      state.filter(item => item.id !== payload);
+      return state.filter(item => item.id !== payload);
 
     default:
       return state;

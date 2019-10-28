@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import Feather from 'react-native-vector-icons/Feather';
 import {connect} from 'react-redux';
-import {TextInput} from 'react-native-gesture-handler';
 
-const ResultDongScreen = ({navigation, items, titleResult, deleteItem}) => {
-  const {container, textGname, textPrice, textResult} = styles;
+const ResultDongScreen = ({navigation, items, deleteItem, result}) => {
+  const {container, textGname, textPrice, textResult, buttonStyleBack} = styles;
+  console.log(items);
 
   return (
     <View>
@@ -31,10 +32,10 @@ const ResultDongScreen = ({navigation, items, titleResult, deleteItem}) => {
                   <Text style={textGname}>{item.groupname}</Text>
                 </View>
                 <View>
-                  <Text style={textResult}>{titleResult}</Text>
+                  <Text style={textResult}>{result}</Text>
                   <Text style={textPrice}>{item.price}</Text>
                   <TouchableOpacity onPress={() => deleteItem(item.id)}>
-                    <Text>Delete</Text>
+                    <Feather name="trash" />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -42,11 +43,13 @@ const ResultDongScreen = ({navigation, items, titleResult, deleteItem}) => {
           );
         }}
       />
-      <TouchableOpacity
-        //style={}
-        onPress={() => navigation.navigate('DongScreen')}>
-        <Text style={{color: '#39819c'}}>جدید</Text>
-      </TouchableOpacity>
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <TouchableOpacity
+          style={buttonStyleBack}
+          onPress={() => navigation.navigate('DongScreen')}>
+          <Text style={{fontSize: 18, color: 'white'}}>جدید</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -82,19 +85,28 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'gray',
   },
+  buttonStyleBack: {
+    borderRadius: 15,
+    backgroundColor: '#39819c',
+    width: 200,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
 });
 
 const mapStateToProps = state => {
   return {
     items: state.ItemReducer,
-    titleResult: state.ResultReducer.result,
+    result: state.ResultReducer,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     deleteItem: payload => dispatch({type: 'DELETE_ITEM', payload}),
-    calcResult: () => dispatch({type: 'CALCULATE'}),
+    calculate: payload => dispatch({type: 'CALCULATE', payload}),
   };
 };
 

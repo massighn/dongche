@@ -1,10 +1,9 @@
 import initialState from '../store/ResultStore';
 
-const Reducer = (state = initialState, {type, payload}) => {
+const Reducer = (state = [], {type, payload}) => {
   switch (type) {
     case 'CALCULATE':
-      return {...state, result: payload};
-
+      return [...state, payload];
     default:
       return state;
   }
