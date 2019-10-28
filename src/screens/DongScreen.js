@@ -8,8 +8,6 @@ import {
   StyleSheet,
 } from 'react-native';
 import {connect} from 'react-redux';
-import ItemStore from '../redux/store/ItemStore';
-import {validate} from '@babel/types';
 
 const DongScreen = ({navigation, addItems, calculate, items}) => {
   const {
@@ -24,17 +22,17 @@ const DongScreen = ({navigation, addItems, calculate, items}) => {
   const [person, setPerson] = useState('');
   const [groupname, setGroupname] = useState('');
 
-  calculateDong = () => {
-    calculate(parseFloat(price / person));
-  };
-
   showResult = () => {
+    if (!groupname.trim() || !price.trim() || !person.trim()) {
+      alert('err');
+      return;
+    }
+
     addItems(groupname, price, person);
-    calculateDong();
-    navigation.navigate('ResultDongScreen', {
-      price: price,
-      groupname: groupname,
-    });
+    setPrice('');
+    setPerson('');
+    setGroupname('');
+    navigation.navigate('ResultDongScreen');
   };
 
   return (
@@ -148,15 +146,13 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    calculate: payload => dispatch({type: 'CALCULATE', payload}),
-    addItems: (groupname, price, person) =>
-      dispatch({type: 'ADD_ITEM', payload: {groupname, price, person}}),
+    addItems: (groupname, price, person, result) =>
+      dispatch({type: 'ADD_ITEM', payload: {groupname, price, person, result}}),
   };
 };
 
 const mapStateToProps = state => {
   return {
-    titleResult: state.ResultReducer,
     items: state.ItemReducer,
   };
 };

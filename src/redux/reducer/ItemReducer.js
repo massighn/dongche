@@ -1,5 +1,5 @@
-import initialState from '../store/ItemStore';
-
+//import initialState from '../store/ItemStore';
+//const initialState = {items: [], result: 0};
 const Reducer = (state = [], {type, payload}) => {
   switch (type) {
     case 'ADD_ITEM':
@@ -10,7 +10,7 @@ const Reducer = (state = [], {type, payload}) => {
           groupname: payload.groupname,
           price: payload.price,
           person: payload.person,
-          //result: parseFloat(payload.price / payload.person),
+          result: parseFloat(payload.price / payload.person),
         },
       ];
 

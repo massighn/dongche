@@ -10,9 +10,10 @@ import {
 import Feather from 'react-native-vector-icons/Feather';
 import {connect} from 'react-redux';
 
-const ResultDongScreen = ({navigation, items, deleteItem, result}) => {
+const ResultDongScreen = ({navigation, items, deleteItem}) => {
   const {container, textGname, textPrice, textResult, buttonStyleBack} = styles;
-  console.log(items);
+  //console.log(items);
+  //console.log(result);
 
   return (
     <View>
@@ -20,6 +21,7 @@ const ResultDongScreen = ({navigation, items, deleteItem, result}) => {
         data={items}
         keyExtractor={(item, i) => i.toString()}
         renderItem={({item}) => {
+          console.log(item);
           return (
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               <View style={container}>
@@ -32,10 +34,10 @@ const ResultDongScreen = ({navigation, items, deleteItem, result}) => {
                   <Text style={textGname}>{item.groupname}</Text>
                 </View>
                 <View>
-                  <Text style={textResult}>{result}</Text>
+                  <Text style={textResult}>{item.result}</Text>
                   <Text style={textPrice}>{item.price}</Text>
                   <TouchableOpacity onPress={() => deleteItem(item.id)}>
-                    <Feather name="trash" />
+                    <Text style={{color: 'red'}}>Delete</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -99,14 +101,12 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     items: state.ItemReducer,
-    result: state.ResultReducer,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     deleteItem: payload => dispatch({type: 'DELETE_ITEM', payload}),
-    calculate: payload => dispatch({type: 'CALCULATE', payload}),
   };
 };
 
