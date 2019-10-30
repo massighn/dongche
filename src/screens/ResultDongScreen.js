@@ -8,16 +8,25 @@ import {
   StyleSheet,
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
+import '../props';
 import {connect} from 'react-redux';
 
 const ResultDongScreen = ({navigation, items, deleteItem}) => {
-  const {container, textGname, textPrice, textResult, buttonStyleBack} = styles;
+  const {
+    backGround,
+    container,
+    textGname,
+    textPrice,
+    textResult,
+    buttonStyleBack,
+    deleteStyle,
+  } = styles;
   //console.log(items);
-  //console.log(result);
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       <FlatList
+        style={{height: 400}}
         data={items}
         keyExtractor={(item, i) => i.toString()}
         renderItem={({item}) => {
@@ -27,17 +36,54 @@ const ResultDongScreen = ({navigation, items, deleteItem}) => {
               <View style={container}>
                 <View
                   style={{
-                    flex: 1,
                     justifyContent: 'center',
                     flexDirection: 'row',
+                    //backgroundColor: '#1e3f53',
+                    borderRadius: 15,
                   }}>
                   <Text style={textGname}>{item.groupname}</Text>
                 </View>
-                <View>
-                  <Text style={textResult}>{item.result}</Text>
-                  <Text style={textPrice}>{item.price}</Text>
-                  <TouchableOpacity onPress={() => deleteItem(item.id)}>
-                    <Text style={{color: 'red'}}>Delete</Text>
+                <View
+                  style={{
+                    flexDirection: 'row-reverse',
+                    justifyContent: 'space-between',
+                    paddingHorizontal: 10,
+                  }}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 'bold',
+                      fontFamily: 'IRANYekanWeb',
+                    }}>
+                    دونگ هر نفر:
+                  </Text>
+                  <Text style={textResult}>{item.result} تومان</Text>
+                </View>
+
+                <View
+                  style={{
+                    flexDirection: 'row-reverse',
+                    justifyContent: 'space-between',
+                    paddingHorizontal: 10,
+                  }}>
+                  <Text>مبلغ کل:</Text>
+                  <Text style={textPrice}>{item.price.toPersian()} تومان</Text>
+
+                  <Text>تعداد:</Text>
+                  <Text style={textPrice}>{item.person.toPersian()} نفر</Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <TouchableOpacity
+                    style={deleteStyle}
+                    onPress={() => deleteItem(item.id)}>
+                    <Text style={{color: 'white', fontWeight: 'bold'}}>
+                      حذف
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -45,7 +91,14 @@ const ResultDongScreen = ({navigation, items, deleteItem}) => {
           );
         }}
       />
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'white',
+        }}>
         <TouchableOpacity
           style={buttonStyleBack}
           onPress={() => navigation.navigate('DongScreen')}>
@@ -64,23 +117,32 @@ ResultDongScreen.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
+  backGround: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     borderRadius: 15,
     borderWidth: 1.5,
-    borderColor: '#39819c',
+    borderColor: '#1e3f53',
     width: 300,
-    height: 100,
+    height: 110,
     marginTop: 15,
   },
   textGname: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
-    fontFamily: 'IRANYekanweb',
+    fontFamily: 'IRANYekanWeb',
+    color: '#1e3f53',
   },
   textResult: {
     fontSize: 20,
     fontWeight: 'bold',
-    fontFamily: 'IRANYekanweb',
+    fontFamily: 'IRANYekanWeb',
     //textAlign: 'center',
   },
   textPrice: {
@@ -95,6 +157,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
+  },
+  deleteStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+    width: 50,
+    height: 20,
+    borderRadius: 5,
   },
 });
 

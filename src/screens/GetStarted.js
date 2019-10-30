@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  View,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -14,7 +13,7 @@ const GetStarted = ({navigation}) => {
   const {startStyle, textStyle, container} = styles;
   return (
     <ImageBackground
-      source={require('../../asset/image/blue.png')}
+      source={require('../../assets/image/blue.png')}
       style={container}>
       <TouchableOpacity
         style={startStyle}
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#39819c',
     fontWeight: 'bold',
-    fontFamily: 'IRANYekanweb',
+    fontFamily: 'IRANYekanWeb',
   },
 });
 

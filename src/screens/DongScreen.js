@@ -7,6 +7,7 @@ import {
   ImageBackground,
   StyleSheet,
 } from 'react-native';
+import '../props';
 import {connect} from 'react-redux';
 
 const DongScreen = ({navigation, addItems, calculate, items}) => {
@@ -38,19 +39,19 @@ const DongScreen = ({navigation, addItems, calculate, items}) => {
   return (
     <ImageBackground
       style={backGround}
-      source={require('../../asset/image/blue2.png')}>
+      source={require('../../assets/image/blue2.png')}>
       <View style={container}>
         <TextInput
           style={textInputStyle}
           value={groupname}
           onChangeText={text => setGroupname(text)}
-          placeholder={'اسم گروهمون'}
+          placeholder={'اسم گروهمون:'}
           placeholderTextColor="#39819c"
         />
 
         <TextInput
           style={textInputStyle}
-          value={price}
+          value={price.toPersian()}
           onChangeText={text => setPrice(text)}
           placeholder={'چندتومنه؟'}
           placeholderTextColor="#39819c"
@@ -59,7 +60,7 @@ const DongScreen = ({navigation, addItems, calculate, items}) => {
 
         <TextInput
           style={textInputStyle}
-          value={person}
+          value={person.toPersian()}
           onChangeText={text => setPerson(text)}
           placeholder={'چندنفریم؟'}
           placeholderTextColor="#39819c"
@@ -75,7 +76,7 @@ const DongScreen = ({navigation, addItems, calculate, items}) => {
         <TouchableOpacity
           style={buttonStyleView}
           onPress={() => navigation.navigate('ResultDongScreen')}>
-          <Text style={[textButton, {color: '#39819c'}]}>نمایش</Text>
+          <Text style={[textButton, {color: '#39819c'}]}>لیست</Text>
         </TouchableOpacity>
       ) : null}
     </ImageBackground>
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
   textInputStyle: {
     fontSize: 20,
     borderBottomWidth: 1.5,
-    borderBottomColor: '#39819c',
+    borderBottomColor: '#1e3f53',
     borderRadius: 15,
     width: 300,
     marginBottom: 10,
