@@ -13,6 +13,7 @@
     "@react-native-community/async-storage": "^1.6.2",
     "feather-icons": "^4.24.1",
     "font-awesome": "^4.7.0",
+    "jalali-moment": "^3.3.3",
     "react": "16.9.0",
     "react-native": "0.61.1",
     "react-native-debugger": "^1.1.0",

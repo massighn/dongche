@@ -1,5 +1,8 @@
 //import initialState from '../store/ItemStore';
 //const initialState = {items: [], result: 0};
+import moment from 'jalali-moment';
+let currentDate = new Date();
+let m = moment(currentDate);
 
 const Reducer = (state = [], {type, payload}) => {
   switch (type) {
@@ -11,6 +14,8 @@ const Reducer = (state = [], {type, payload}) => {
           groupname: payload.groupname,
           price: payload.price,
           person: payload.person,
+          date: m.locale('fa').format('YYYY/MMMM/DD'),
+
           result: parseInt(
             payload.price.toEnglish() / payload.person.toEnglish(),
           )

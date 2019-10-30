@@ -131,8 +131,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     width: 300,
     marginBottom: 10,
-    //backgroundColor: 'white',
-    //opacity: 0.7,
+    textAlign: 'right',
   },
   buttonStyleCalc: {
     borderRadius: 15,
@@ -147,8 +146,11 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    addItems: (groupname, price, person, result) =>
-      dispatch({type: 'ADD_ITEM', payload: {groupname, price, person, result}}),
+    addItems: (groupname, price, person, result, date) =>
+      dispatch({
+        type: 'ADD_ITEM',
+        payload: {groupname, price, person, result, date},
+      }),
   };
 };
 

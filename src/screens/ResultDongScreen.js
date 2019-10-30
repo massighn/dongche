@@ -21,7 +21,7 @@ const ResultDongScreen = ({navigation, items, deleteItem}) => {
     buttonStyleBack,
     deleteStyle,
   } = styles;
-  //console.log(items);
+  console.log(items);
 
   return (
     <View style={{flex: 1}}>
@@ -36,12 +36,14 @@ const ResultDongScreen = ({navigation, items, deleteItem}) => {
               <View style={container}>
                 <View
                   style={{
-                    justifyContent: 'center',
-                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    flexDirection: 'row-reverse',
                     //backgroundColor: '#1e3f53',
                     borderRadius: 15,
+                    paddingHorizontal: 10,
                   }}>
                   <Text style={textGname}>{item.groupname}</Text>
+                  <Text style={{fontSize: 12, color: 'gray'}}>{item.date}</Text>
                 </View>
                 <View
                   style={{
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: '#1e3f53',
     width: 300,
-    height: 110,
+    height: 130,
     marginTop: 15,
   },
   textGname: {
