@@ -88,6 +88,8 @@ DongScreen.navigationOptions = {
     backgroundColor: '#39819c',
   },
   headerTintColor: 'white',
+  headerLeft: null,
+  title: 'محاسبه دونگمون',
 };
 
 const styles = StyleSheet.create({
@@ -136,6 +138,7 @@ const styles = StyleSheet.create({
   buttonStyleCalc: {
     borderRadius: 15,
     backgroundColor: '#39819c',
+    //backgroundColor: '#f4db27',
     width: 200,
     height: 50,
     justifyContent: 'center',
