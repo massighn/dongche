@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  ImageBackground,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
+import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import '../props';
 import {connect} from 'react-redux';
 
@@ -116,6 +108,8 @@ ResultDongScreen.navigationOptions = {
     backgroundColor: '#39819c',
   },
   headerTintColor: 'white',
+  headerLeft: null,
+  title: 'دونگامون',
 };
 
 const styles = StyleSheet.create({

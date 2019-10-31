@@ -11,7 +11,7 @@ import '../props';
 import {connect} from 'react-redux';
 import images from '../images';
 
-const DongScreen = ({navigation, addItems, calculate, items}) => {
+const DongScreen = ({navigation, addItems, items}) => {
   const {
     textInputStyle,
     buttonStyleCalc,
@@ -35,6 +35,7 @@ const DongScreen = ({navigation, addItems, calculate, items}) => {
     setPrice('');
     setPerson('');
     setGroupname('');
+    setHasError(false);
     navigation.navigate('ResultDongScreen');
   };
 
@@ -42,7 +43,10 @@ const DongScreen = ({navigation, addItems, calculate, items}) => {
     <ImageBackground style={backGround} source={images.backgroundDongScreen}>
       <View style={container}>
         <TextInput
-          style={[textInputStyle, hasError && {borderBottomColor: 'red'}]}
+          style={[
+            textInputStyle,
+            hasError && {borderBottomColor: 'red', borderBottomWidth: 2.5},
+          ]}
           value={groupname}
           onChangeText={text => setGroupname(text)}
           placeholder={'اسم گروهمون:'}
@@ -50,7 +54,10 @@ const DongScreen = ({navigation, addItems, calculate, items}) => {
         />
 
         <TextInput
-          style={[textInputStyle, hasError && {borderBottomColor: 'red'}]}
+          style={[
+            textInputStyle,
+            hasError && {borderBottomColor: 'red', borderBottomWidth: 2.5},
+          ]}
           value={price.toPersian()}
           onChangeText={text => setPrice(text)}
           placeholder={'چندتومنه؟'}
@@ -59,7 +66,10 @@ const DongScreen = ({navigation, addItems, calculate, items}) => {
         />
 
         <TextInput
-          style={[textInputStyle, hasError && {borderBottomColor: 'red'}]}
+          style={[
+            textInputStyle,
+            hasError && {borderBottomColor: 'red', borderBottomWidth: 2.5},
+          ]}
           value={person.toPersian()}
           onChangeText={text => setPerson(text)}
           placeholder={'چندنفریم؟'}
