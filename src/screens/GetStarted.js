@@ -8,6 +8,7 @@ import {
   Image,
   Animated,
 } from 'react-native';
+import images from '../images';
 
 const width = Dimensions.get('window');
 
@@ -24,11 +25,9 @@ const GetStarted = ({navigation}) => {
   };
 
   return (
-    <ImageBackground
-      source={require('../../assets/image/dongche.png')}
-      style={container}>
+    <ImageBackground source={images.backgroundStarted} style={container}>
       <Animated.Image
-        source={require('../../assets/image/coin.png')}
+        source={images.coin}
         style={{
           width: 60,
           height: 60,

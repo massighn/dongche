@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import '../props';
 import {connect} from 'react-redux';
+import images from '../images';
 
 const DongScreen = ({navigation, addItems, calculate, items}) => {
   const {
@@ -22,10 +23,11 @@ const DongScreen = ({navigation, addItems, calculate, items}) => {
   const [price, setPrice] = useState('');
   const [person, setPerson] = useState('');
   const [groupname, setGroupname] = useState('');
+  const [hasError, setHasError] = useState(false);
 
   showResult = () => {
     if (!groupname.trim() || !price.trim() || !person.trim()) {
-      alert('err');
+      setHasError(true);
       return;
     }
 
@@ -37,12 +39,10 @@ const DongScreen = ({navigation, addItems, calculate, items}) => {
   };
 
   return (
-    <ImageBackground
-      style={backGround}
-      source={require('../../assets/image/blue2.png')}>
+    <ImageBackground style={backGround} source={images.backgroundDongScreen}>
       <View style={container}>
         <TextInput
-          style={textInputStyle}
+          style={[textInputStyle, hasError && {borderBottomColor: 'red'}]}
           value={groupname}
           onChangeText={text => setGroupname(text)}
           placeholder={'اسم گروهمون:'}
@@ -50,7 +50,7 @@ const DongScreen = ({navigation, addItems, calculate, items}) => {
         />
 
         <TextInput
-          style={textInputStyle}
+          style={[textInputStyle, hasError && {borderBottomColor: 'red'}]}
           value={price.toPersian()}
           onChangeText={text => setPrice(text)}
           placeholder={'چندتومنه؟'}
@@ -59,7 +59,7 @@ const DongScreen = ({navigation, addItems, calculate, items}) => {
         />
 
         <TextInput
-          style={textInputStyle}
+          style={[textInputStyle, hasError && {borderBottomColor: 'red'}]}
           value={person.toPersian()}
           onChangeText={text => setPerson(text)}
           placeholder={'چندنفریم؟'}

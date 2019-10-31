@@ -1,5 +1,3 @@
-//import initialState from '../store/ItemStore';
-//const initialState = {items: [], result: 0};
 import moment from 'jalali-moment';
 let currentDate = new Date();
 let m = moment(currentDate);
