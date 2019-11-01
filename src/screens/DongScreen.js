@@ -67,7 +67,8 @@ const DongScreen = ({navigation, addItems, items}) => {
           value={price.toPersian()}
           onChangeText={text => {
             const intText = parseInt(text.toEnglish());
-            if (intText >= 0 && intText !== NaN) setPrice(text);
+            if (!text || (intText >= 0 && intText !== NaN)) setPrice(text);
+            console.log(intText);
           }}
           placeholder={'چندتومنه؟'}
           placeholderTextColor="#39819c"
@@ -83,13 +84,12 @@ const DongScreen = ({navigation, addItems, items}) => {
           value={person.toPersian()}
           onChangeText={text => {
             const intText = parseInt(text.toEnglish());
-            if (intText >= 0 && intText !== NaN) setPerson(text);
+            if (!text || (intText >= 0 && intText !== NaN)) setPerson(text);
           }}
           placeholder={'چندنفریم؟'}
           placeholderTextColor="#39819c"
           keyboardType={'numeric'}
           maxLength={3}
-          min
         />
       </View>
 
