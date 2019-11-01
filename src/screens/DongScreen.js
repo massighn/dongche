@@ -26,7 +26,13 @@ const DongScreen = ({navigation, addItems, items}) => {
   const [hasError, setHasError] = useState(false);
 
   showResult = () => {
-    if (!groupname.trim() || !price.trim() || !person.trim()) {
+    if (
+      !groupname.trim() ||
+      !price.trim() ||
+      !person.trim() ||
+      person < 2 ||
+      price.length < 4
+    ) {
       setHasError(true);
       return;
     }
@@ -59,10 +65,14 @@ const DongScreen = ({navigation, addItems, items}) => {
             hasError && {borderBottomColor: 'red', borderBottomWidth: 2.5},
           ]}
           value={price.toPersian()}
-          onChangeText={text => setPrice(text)}
+          onChangeText={text => {
+            const intText = parseInt(text.toEnglish());
+            if (intText >= 0 && intText !== NaN) setPrice(text);
+          }}
           placeholder={'چندتومنه؟'}
           placeholderTextColor="#39819c"
           keyboardType={'numeric'}
+          maxLength={9}
         />
 
         <TextInput
@@ -71,10 +81,15 @@ const DongScreen = ({navigation, addItems, items}) => {
             hasError && {borderBottomColor: 'red', borderBottomWidth: 2.5},
           ]}
           value={person.toPersian()}
-          onChangeText={text => setPerson(text)}
+          onChangeText={text => {
+            const intText = parseInt(text.toEnglish());
+            if (intText >= 0 && intText !== NaN) setPerson(text);
+          }}
           placeholder={'چندنفریم؟'}
           placeholderTextColor="#39819c"
           keyboardType={'numeric'}
+          maxLength={3}
+          min
         />
       </View>
 
@@ -109,7 +124,7 @@ const styles = StyleSheet.create({
   textButton: {
     fontSize: 16,
     fontWeight: 'bold',
-    fontFamily: 'IRANYekanweb',
+    fontFamily: 'Iranyekanwebregular',
   },
   buttonStyleView: {
     backgroundColor: 'white',
